@@ -72,7 +72,7 @@ const Footer = () => {
                 <Github className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
-                href="#https://www.linkedin.com/in/abdosobhy/"
+                href="https://www.linkedin.com/in/abdosobhy/"
                 className="p-2 sm:p-3 glass rounded-lg hover:bg-primary/20 transition-all duration-300 hover:scale-110"
               >
                 <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
