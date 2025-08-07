@@ -64,19 +64,21 @@ const Footer = () => {
             </h4>
             <div className="flex gap-3 sm:gap-4 justify-center md:justify-start">
               <a
-                href="#"
+                href="https://github.com/abdoSobhy1"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 sm:p-3 glass rounded-lg hover:bg-primary/20 transition-all duration-300 hover:scale-110"
               >
                 <Github className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
-                href="#"
+                href="#https://www.linkedin.com/in/abdosobhy/"
                 className="p-2 sm:p-3 glass rounded-lg hover:bg-primary/20 transition-all duration-300 hover:scale-110"
               >
                 <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
-                href="#"
+                href="mailto:abdoosobhy97@gmail.com"
                 className="p-2 sm:p-3 glass rounded-lg hover:bg-primary/20 transition-all duration-300 hover:scale-110"
               >
                 <Mail className="h-4 w-4 sm:h-5 sm:w-5" />

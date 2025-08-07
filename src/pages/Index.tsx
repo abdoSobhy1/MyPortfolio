@@ -131,19 +131,19 @@ const Index = () => {
                   {/* Social Links */}
                   <div className="flex gap-4 pt-4">
                     <a
-                      href="#"
+                      href="https://github.com/abdoSobhy1"
                       className="p-3 glass rounded-full hover:bg-primary/20 transition-all duration-300 hover:scale-110"
                     >
                       <Github className="h-5 w-5" />
                     </a>
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/in/abdosobhy/"
                       className="p-3 glass rounded-full hover:bg-primary/20 transition-all duration-300 hover:scale-110"
                     >
                       <Linkedin className="h-5 w-5" />
                     </a>
                     <a
-                      href="#"
+                      href="mailto:abdoosobhy97@gmail.com"
                       className="p-3 glass rounded-full hover:bg-primary/20 transition-all duration-300 hover:scale-110"
                     >
                       <Mail className="h-5 w-5" />

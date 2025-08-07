@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,14 +19,16 @@ import { Shimmer } from "@/components/ui/shimmer";
 interface SiteSettings {
   id: string;
   site_title: string;
-  site_description: string;
-  hero_title: string;
-  hero_subtitle: string;
-  contact_email: string;
-  github_url: string;
-  linkedin_url: string;
-  twitter_url: string;
-  about_content: string;
+  site_description: string | null;
+  hero_title: string | null;
+  hero_subtitle: string | null;
+  contact_email: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  twitter_url: string | null;
+  about_content: string | null;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export default function SiteSettings() {
@@ -36,13 +38,7 @@ export default function SiteSettings() {
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
 
-  useEffect(() => {
-    if (isSignedIn) {
-      fetchSettings();
-    }
-  }, [isSignedIn]);
-
-  const fetchSettings = async () => {
+  const fetchSettings = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from("site_settings")
@@ -66,7 +62,13 @@ export default function SiteSettings() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      fetchSettings();
+    }
+  }, [isSignedIn, fetchSettings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
