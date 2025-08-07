@@ -1,0 +1,4 @@
+project_id = "dxbtopbnwtuzcgksvpby"
+
+[functions.get-client-ip]
+verify_jwt = false
