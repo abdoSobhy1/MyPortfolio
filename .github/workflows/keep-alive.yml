@@ -2,7 +2,7 @@ name: Supabase Keep Alive (Extended)
 
 on:
   schedule:
-    - cron: "*/1 * * * *" # every 3 days
+    - cron: "* * * * *" # every 3 days
   workflow_dispatch:
 
 jobs:
