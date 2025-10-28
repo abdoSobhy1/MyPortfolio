@@ -3,7 +3,7 @@ name: Supabase Keep Alive
 on:
   schedule:
     - cron: "0 0 */3 * *" # every 3 days
-  workflow_dispatch: # allows manual run
+  workflow_dispatch:
 
 jobs:
   ping:
@@ -12,9 +12,10 @@ jobs:
       - name: Keep Supabase awake
         run: |
           echo "Running Supabase keep-alive..."
-          curl -s -X POST \
+          RESPONSE=$(curl -s -X GET \
             -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
             -H "Content-Type: application/json" \
-            -d '{"query":"select * from keep_alive limit 1;"}' \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc"
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?select=*")
+          echo "Supabase responded with:"
+          echo "$RESPONSE"
