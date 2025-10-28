@@ -1,8 +1,8 @@
-name: Supabase Keep Alive
+name: Supabase Keep Alive (Extended)
 
 on:
   schedule:
-    - cron: "0 0 */3 * *" # every 3 days
+    - cron: "*/1 * * * *" # every 3 days
   workflow_dispatch:
 
 jobs:
@@ -11,11 +11,28 @@ jobs:
     steps:
       - name: Keep Supabase awake
         run: |
-          echo "Running Supabase keep-alive..."
-          RESPONSE=$(curl -s -X GET \
+          echo "Running Supabase keep-alive with insert + select + delete..."
+          RANDOM_NAME=$(openssl rand -hex 6)
+
+          # 1️⃣ Insert
+          INSERT=$(curl -s -X POST \
             -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
             -H "Content-Type: application/json" \
+            -d "{\"name\": \"${RANDOM_NAME}\"}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive")
+          echo "Inserted: $INSERT"
+
+          # 2️⃣ Select
+          SELECT=$(curl -s -X GET \
+            -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
             "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?select=*")
-          echo "Supabase responded with:"
-          echo "$RESPONSE"
+          echo "Selected: $SELECT"
+
+          # 3️⃣ Delete
+          DELETE=$(curl -s -X DELETE \
+            -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?name=eq.${RANDOM_NAME}")
+          echo "Deleted: $DELETE"
